@@ -11,7 +11,8 @@ namespace StudioEnhancementSuite.Patches;
 [HarmonyPatch]
 public static class HighContrastOutlines {
     public static void Register(Harmony harmony, ConfigFile cfg) {
-        if (cfg.Bind("High Contrast Outlines", "Enable", true).Value) {
+        var enabled = cfg.Bind("High Contrast Outlines", "Enable", true);
+        if (enabled.Value) {
             harmony.PatchAll(typeof(HighContrastOutlines));
         }
     }

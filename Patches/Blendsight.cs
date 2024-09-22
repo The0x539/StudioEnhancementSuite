@@ -13,10 +13,12 @@ public static class Blendsight {
     private static string blendsightPath = "";
 
     public static void Register(Harmony harmony, ConfigFile cfg) {
+        var enabled = cfg.Bind("Blendsight", "Enable", false);
+
         blenderPath = cfg.Bind("Blendsight", "Blender Path", blenderPath).Value;
         blendsightPath = cfg.Bind("Blendsight", "blendsight.py Path", "").Value;
 
-        if (cfg.Bind("Blendsight", "Enable", false).Value) {
+        if (enabled.Value) {
             harmony.PatchAll(typeof(Blendsight));
         }
     }

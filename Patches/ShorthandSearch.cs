@@ -11,7 +11,8 @@ namespace StudioEnhancementSuite.Patches;
 [HarmonyPatch]
 public static class ShorthandSearch {
     public static void Register(Harmony harmony, ConfigFile cfg) {
-        if (cfg.Bind("Shorthand Search", "Enable", true).Value) {
+        var enabled = cfg.Bind("Shorthand Search", "Enable", true);
+        if (enabled.Value) {
             harmony.PatchAll(typeof(ShorthandSearch));
         }
     }

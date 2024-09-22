@@ -11,9 +11,10 @@ public static class UncapFramerate {
     private static int newLimit;
 
     public static void Register(Harmony harmony, ConfigFile cfg) {
+        var enabled = cfg.Bind("Shorthand Search", "Enable", true);
         newLimit = cfg.Bind("Uncap Framerate", "New Limit", 144).Value;
 
-        if (cfg.Bind("Uncap Framerate", "Enable", true).Value) {
+        if (enabled.Value) {
             harmony.PatchAll(typeof(UncapFramerate));
         }
     }
