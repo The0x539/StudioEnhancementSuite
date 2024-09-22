@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Studio": {
+      "commandName": "Executable",
+      "executablePath": "C:\\Program Files\\Studio 2.0 EarlyAccess\\Studio.exe",
+      "commandLineArgs": "--enable-console true"
+    }
+  }
+}
