@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿using BepInEx.Configuration;
+
+using HarmonyLib;
 
 using System.Collections.Generic;
 
@@ -8,6 +10,12 @@ namespace StudioEnhancementSuite.Patches;
 
 [HarmonyPatch]
 public static class HighContrastOutlines {
+    public static void Register(Harmony harmony, ConfigFile cfg) {
+        if (cfg.Bind("High Contrast Outlines", "Enable", true).Value) {
+            harmony.PatchAll(typeof(HighContrastOutlines));
+        }
+    }
+
     private static readonly Dictionary<(int, bool), Material> edgeMaterialCache = [];
 
     [HarmonyPatch(typeof(DrawableElement), nameof(DrawableElement.getMaterialForEdge))]

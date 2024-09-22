@@ -2,11 +2,20 @@
 
 using HarmonyLib;
 
+using StudioEnhancementSuite.Patches;
+
 namespace StudioEnhancementSuite;
 
 [BepInPlugin(MyPluginInfo.PLUGIN_GUID, MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 public sealed class Plugin : BaseUnityPlugin {
+
     public void Awake() {
-        new Harmony(MyPluginInfo.PLUGIN_GUID).PatchAll(System.Reflection.Assembly.GetExecutingAssembly());
+        var harmony = new Harmony(MyPluginInfo.PLUGIN_GUID);
+
+        harmony.PatchAll(typeof(Scratchpad));
+        UncapFramerate.Register(harmony, this.Config);
+        HighContrastOutlines.Register(harmony, this.Config);
+        ShorthandSearch.Register(harmony, this.Config);
+        Blendsight.Register(harmony, this.Config);
     }
 }

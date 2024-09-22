@@ -1,4 +1,6 @@
-﻿using HarmonyLib;
+﻿using BepInEx.Configuration;
+
+using HarmonyLib;
 
 using System;
 using System.Collections.Generic;
@@ -8,6 +10,12 @@ namespace StudioEnhancementSuite.Patches;
 
 [HarmonyPatch]
 public static class ShorthandSearch {
+    public static void Register(Harmony harmony, ConfigFile cfg) {
+        if (cfg.Bind("Shorthand Search", "Enable", true).Value) {
+            harmony.PatchAll(typeof(ShorthandSearch));
+        }
+    }
+
     [HarmonyPatch(typeof(Bucket), nameof(Bucket.getBucketItems))]
     [HarmonyPostfix]
     public static void AddItems(List<BucketItem> repository, string keyword, List<BucketItem> __result) {
