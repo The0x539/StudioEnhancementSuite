@@ -17,5 +17,6 @@ public sealed class Plugin : BaseUnityPlugin {
         HighContrastOutlines.Register(harmony, this.Config);
         ShorthandSearch.Register(harmony, this.Config);
         Blendsight.Register(harmony, this.Config);
+        ShortPartNames.Register(harmony, this.Config);
     }
 }

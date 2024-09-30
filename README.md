@@ -6,6 +6,7 @@ Assorted improvements for Bricklink's "Studio 2.0" digital LEGO model editor.
    - This currently only works in the editor. I haven't figured out how to do it for instructions
  - Shorthand search (*e.g.*, searching `tr22` produces results for "Tile, Round 2 x 2"
  - Redirect renders to run in Blender instead of Eyesight (Experimental, disabled by default, requires additional setup)
+ - Abbreviate part names in the palette to improve readability
 
 # Installation
 1. Install [BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html) (**5.x, not 6.x!**) normally.
