@@ -82,6 +82,19 @@ public static class ShortPartNames {
     };
 
     private static readonly (string, string)[] abbreviations = [
+        ("with Stud on Side", "1-SNOT"),
+
+        ("with Studs on 1 Side", "SNOT"),
+        ("with Studs on Side", "SNOT"),
+
+        ("with Studs on 2 Sides, Opposite", "2-SNOT"),
+        ("with Studs on 2 Sides", "2-SNOT"),
+        ("with Studs on Sides", "2-SNOT"),
+
+        ("with Studs on 2 Sides, Adjacent", "C-SNOT"),
+        ("with Studs on Side and Ends", "3-SNOT"),
+        ("with Studs on 4 Sides", "4-SNOT"),
+
         (" x ", " × "),
         (" 1/4", "¼"),
         (" 1/2", "½"),
