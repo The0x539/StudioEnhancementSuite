@@ -13,7 +13,7 @@ public static class ShortPartNames {
     public static void Register(Harmony harmony, ConfigFile cfg) {
         var enabled = cfg.Bind("Short Part Names", "Enable", true);
         if (enabled.Value) {
-            harmony.PatchAll(typeof(ShortPartNames));
+            harmony.PatchFromCaller();
         }
     }
 

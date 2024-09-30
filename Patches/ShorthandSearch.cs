@@ -13,7 +13,7 @@ public static class ShorthandSearch {
     public static void Register(Harmony harmony, ConfigFile cfg) {
         var enabled = cfg.Bind("Shorthand Search", "Enable", true);
         if (enabled.Value) {
-            harmony.PatchAll(typeof(ShorthandSearch));
+            harmony.PatchFromCaller();
         }
     }
 

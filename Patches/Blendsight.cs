@@ -19,7 +19,7 @@ public static class Blendsight {
         blendsightPath = cfg.Bind("Blendsight", "blendsight.py Path", "").Value;
 
         if (enabled.Value) {
-            harmony.PatchAll(typeof(Blendsight));
+            harmony.PatchFromCaller();
         }
     }
 

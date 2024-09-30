@@ -2,6 +2,8 @@
 
 using HarmonyLib;
 
+using System.Reflection;
+
 using UnityEngine;
 
 namespace StudioEnhancementSuite.Patches;
@@ -15,7 +17,7 @@ public static class UncapFramerate {
         newLimit = cfg.Bind("Uncap Framerate", "New Limit", 144).Value;
 
         if (enabled.Value) {
-            harmony.PatchAll(typeof(UncapFramerate));
+            harmony.PatchFromCaller();
         }
     }
 

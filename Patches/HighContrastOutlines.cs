@@ -13,7 +13,7 @@ public static class HighContrastOutlines {
     public static void Register(Harmony harmony, ConfigFile cfg) {
         var enabled = cfg.Bind("High Contrast Outlines", "Enable", true);
         if (enabled.Value) {
-            harmony.PatchAll(typeof(HighContrastOutlines));
+            harmony.PatchFromCaller();
         }
     }
 
