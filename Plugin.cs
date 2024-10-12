@@ -18,5 +18,6 @@ public sealed class Plugin : BaseUnityPlugin {
         ShorthandSearch.Register(harmony, this.Config);
         Blendsight.Register(harmony, this.Config);
         ShortPartNames.Register(harmony, this.Config);
+        LargePartThreshold.Register(harmony, this.Config);
     }
 }
