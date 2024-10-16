@@ -19,5 +19,6 @@ public sealed class Plugin : BaseUnityPlugin {
         Blendsight.Register(harmony, this.Config);
         ShortPartNames.Register(harmony, this.Config);
         LargePartThreshold.Register(harmony, this.Config);
+        Maximize.Register(harmony, this.Config);
     }
 }

@@ -41,6 +41,13 @@
 			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\BrickLink.Studio.Common.Runtime.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Zenject">
+			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\Zenject.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+	</ItemGroup>
+
+	<ItemGroup>
 		<Publicize Include="Studio" />
 	</ItemGroup>
 

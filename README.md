@@ -8,6 +8,7 @@ Assorted improvements for Bricklink's "Studio 2.0" digital LEGO model editor.
  - Redirect renders to run in Blender instead of Eyesight (Experimental, disabled by default, requires additional setup)
  - Abbreviate part names in the palette to improve readability
  - Change the 16-stud threshold of the "Reduce scale for parts wider than 16 studs" setting
+ - Actually remember if the window was maximized when Studio was last closed and restore this state accordingly.
 
 # Installation
 1. Install [BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html) (**5.x, not 6.x!**) normally.
