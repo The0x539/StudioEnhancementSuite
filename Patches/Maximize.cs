@@ -5,6 +5,7 @@ using HarmonyLib;
 using StudioEnhancementSuite.FFI;
 
 using System;
+using System.Runtime.InteropServices;
 
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -23,7 +24,7 @@ public static class Maximize {
     // If you try to maximize too early, it just gets undone immediately. No idea why.
     // Even SceneManager.sceneUnloaded("Studio for all Initialization") is too early.
     [HarmonyPatch(typeof(Zenject.SceneContext), nameof(Zenject.SceneContext.Awake))]
-    [HarmonyPrefix]
+    [HarmonyPostfix]
     public static void OnStartup() {
         if (SceneManager.GetActiveScene().name != "Studio for All") {
             return;
@@ -32,15 +33,20 @@ public static class Maximize {
         var shouldMaximize = PlayerPrefs.GetInt("Maximize", 0) != 0;
 
         if (shouldMaximize) {
+            Console.WriteLine("maximize");
             MaximizeUnityWindow();
+        } else {
+            Console.WriteLine("do not maximize");
         }
-        CheckIfMaximized();
-        Preferences.Instance.onScreenSizeChanged += CheckIfMaximized;
     }
 
     [HarmonyPatch(typeof(Preferences), nameof(Preferences.SaveAll))]
     [HarmonyPostfix]
     public static void Save() {
+        var hWnd = GameWorld.GetActiveWindow();
+        var placement = GetWindowPlacement(hWnd);
+        var currentlyMaximized = placement.showCmd == ShowWindowCmd.ShowMaximized;
+
         PlayerPrefs.SetInt("Maximize", currentlyMaximized ? 1 : 0);
     }
 
@@ -49,18 +55,12 @@ public static class Maximize {
         User32.ShowWindow(hWnd, ShowWindowCmd.ShowMaximized);
     }
 
-    private static bool currentlyMaximized = false;
-
-    private static void CheckIfMaximized() {
-        var hWnd = GameWorld.GetActiveWindow();
-        var placement = GetWindowPlacement(hWnd);
-        currentlyMaximized = placement.showCmd == ShowWindowCmd.ShowMaximized;
-    }
-
     private static WindowPlacement GetWindowPlacement(nint hWnd) {
         var placement = new WindowPlacement();
         var success = User32.GetWindowPlacement(hWnd, ref placement);
-        if (!success) throw new Exception("GetWindowPlacement failed");
+        if (!success) {
+            Marshal.ThrowExceptionForHR(Marshal.GetLastWin32Error());
+        }
         return placement;
     }
 }

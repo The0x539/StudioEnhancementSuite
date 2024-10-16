@@ -5,11 +5,11 @@ namespace StudioEnhancementSuite.FFI;
 using HWND = nint;
 
 internal static class User32 {
-    [DllImport("user32.dll")]
+    [DllImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool ShowWindow(HWND hWnd, ShowWindowCmd nCmdShow);
 
-    [DllImport("user32.dll")]
+    [DllImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     public static extern bool GetWindowPlacement(HWND hWnd, ref WindowPlacement lpwndpl);
 }
