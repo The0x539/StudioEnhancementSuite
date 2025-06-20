@@ -11,9 +11,15 @@ Assorted improvements for Bricklink's "Studio 2.0" digital LEGO model editor.
  - Actually remember if the window was maximized when Studio was last closed and restore this state accordingly.
 
 # Installation
+
 1. Install [BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html) (**5.x, not 6.x!**) normally.
+1. Grab the latest DLL from this repo's "Releases" section.
 1. Place the DLL in `Studio 2.0/BepInEx/plugins/`. (If the directory does not exist, launching Studio should create it.)
+
+Below is a video demonstration modifying a freshly installed copy of Studio in an otherwise completely-blank Windows Sandbox VM:
+
+https://github.com/user-attachments/assets/1b0a5f89-0fa3-4b32-9732-b4afa35e86bb
 
 # Configuration
 Edit `Studio 2.0/BepInEx/config/StudioEnhancementSuite.cfg` in a text editor.
-Each modification can be individually toggled, and some have additional options.
+Each modification can be individually enabled or disabled, and some have additional options.
