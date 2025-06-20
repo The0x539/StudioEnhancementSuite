@@ -21,5 +21,6 @@ public sealed class Plugin : BaseUnityPlugin {
         LargePartThreshold.Register(harmony, this.Config);
         Maximize.Register(harmony, this.Config);
         ForceCustomParts.Register(harmony, this.Config);
+        CameraTweaks.Register(harmony, this.Config);
     }
 }
