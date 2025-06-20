@@ -1,6 +1,7 @@
+# Studio Enhancement Suite
 Assorted improvements for Bricklink's "Studio 2.0" digital LEGO model editor.
 
-# Features
+## Features
  - Adjust hardcoded 60 FPS limit
  - High-contrast outlines in the editor for dark-but-not-black colors
    - This currently only works in the editor. I haven't figured out how to do it for instructions
@@ -10,7 +11,7 @@ Assorted improvements for Bricklink's "Studio 2.0" digital LEGO model editor.
  - Change the 16-stud threshold of the "Reduce scale for parts wider than 16 studs" setting
  - Actually remember if the window was maximized when Studio was last closed and restore this state accordingly.
 
-# Installation
+## Installation
 
 1. Install [BepInEx](https://docs.bepinex.dev/articles/user_guide/installation/index.html) (**5.x, not 6.x!**) normally.
 1. Grab the latest DLL from this repo's "Releases" section.
@@ -20,6 +21,6 @@ Below is a video demonstration modifying a freshly installed copy of Studio in a
 
 https://github.com/user-attachments/assets/1b0a5f89-0fa3-4b32-9732-b4afa35e86bb
 
-# Configuration
+## Configuration
 Edit `Studio 2.0/BepInEx/config/StudioEnhancementSuite.cfg` in a text editor.
 Each modification can be individually enabled or disabled, and some have additional options.
