@@ -45,7 +45,6 @@ public static class ForceCustomParts {
     [HarmonyPatch(typeof(PartIdInfoManager), nameof(PartIdInfoManager.GetFirstMappingInfoFromLDraw))]
     [HarmonyPostfix]
     public static void MaskResult(string ldrawItemNo, ref PartInfo? __result) {
-        Console.WriteLine(ldrawItemNo);
         if (modelFilenames.Contains(ldrawItemNo)) {
             __result = null;
         }
