@@ -2,7 +2,8 @@
 
 using HarmonyLib;
 
-using System;
+using Studio.DataModel.Info;
+
 using System.Collections.Generic;
 
 namespace StudioEnhancementSuite.Patches;

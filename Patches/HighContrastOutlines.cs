@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using Studio.Application.Services;
+
+
 namespace StudioEnhancementSuite.Patches;
 
 [HarmonyPatch]
@@ -31,12 +34,12 @@ public static class HighContrastOutlines {
             return false;
         }
 
-        var studioColor = ColorLibrary.Instance.GetStudioColorForLDrawCode(colorCode);
+        var studioColor = IColorLibrary.Instance.GetStudioColorForLDrawCode(colorCode);
         if (studioColor.CategoryIndex is not 0 or 2 or 3 or 4 or 7 or 8) {
             return true;
         }
 
-        var faceRgb = studioColor.rgbValue;
+        var faceRgb = studioColor.RGBValue;
         var faceColor = Lab.FromRgb(faceRgb[0], faceRgb[1], faceRgb[2]);
 
         var edgeColor = new Lab {
