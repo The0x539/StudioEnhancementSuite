@@ -43,6 +43,10 @@
 			<HintPath>$(StudioDlls)\Studio.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+		<Reference Include="Studio.DataModel">
+			<HintPath>$(StudioDlls)\Studio.DataModel.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 		<Reference Include="Studio.Common">
 			<HintPath>$(StudioDlls)\BrickLink.Studio.Common.Runtime.dll</HintPath>
 			<Private>False</Private>
@@ -67,6 +71,7 @@
 
 	<ItemGroup>
 		<Publicize Include="Studio" />
+		<Publicize Include="Studio.Presentation" />
 	</ItemGroup>
 
 

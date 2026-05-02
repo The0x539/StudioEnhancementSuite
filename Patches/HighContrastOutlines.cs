@@ -7,6 +7,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Studio.Application.Services;
+using System;
+using Studio.Presentation.World;
+using UI_Script.World;
+using Studio.Presentation.Services;
 
 
 namespace StudioEnhancementSuite.Patches;
@@ -16,51 +20,45 @@ public static class HighContrastOutlines {
     public static void Register(Harmony harmony, ConfigFile cfg) {
         var enabled = cfg.Bind("High Contrast Outlines", "Enable", true);
         if (enabled.Value) {
+            Console.WriteLine("JFDOIsjoisdfjoijfdsoi");
             harmony.PatchFromCaller();
         }
     }
 
-    private static readonly Dictionary<(int, bool), Material> edgeMaterialCache = [];
+    private static readonly Dictionary<int, Material> edgeMaterialCache = [];
 
-    [HarmonyPatch(typeof(DrawableElement), nameof(DrawableElement.getMaterialForEdge))]
-    [HarmonyPatch(typeof(Ins_DrawableElement), nameof(Ins_DrawableElement.getMaterialForEdge))]
-    [HarmonyPrefix]
-    public static bool Do(object __instance, int colorCode, ref Material __result) {
-        var insMode = __instance is Ins_DrawableElement && Ins_DrawableElement.IsForInsMode;
-        var cacheKey = (colorCode, insMode);
+    [HarmonyPatch(typeof(BrickMaterialServiceBase), nameof(BrickMaterialServiceBase.GetEdgeMaterial))]
+    [HarmonyPostfix]
+    public static void Do(BrickMaterialServiceBase __instance, in BrickMaterialParameters parameters, ref Material __result) {
+        var colorCode = parameters.ColorCode;
+        var cacheKey = colorCode;
 
         if (edgeMaterialCache.TryGetValue(cacheKey, out var existing)) {
             __result = existing;
-            return false;
+            return;
         }
 
-        var studioColor = ColorLibrary.Instance.GetStudioColorForLDrawCode(colorCode);
-        if (studioColor.CategoryIndex is not (0 or 2 or 3 or 4 or 7 or 8)) {
-            return true;
+        if (__result != __instance.CachedEdgeMaterial && __result != __instance.CachedLightEdgeMaterial) {
+            return;
         }
+
+        var studioColor = IColorLibrary.Instance.GetStudioColorForLDrawCode(colorCode);
 
         var faceRgb = studioColor.RGBValue;
         var faceColor = Lab.FromRgb(faceRgb[0], faceRgb[1], faceRgb[2]);
 
+        var dark = faceColor.L < 0.75;
+        var material = dark ? __instance.CachedEdgeMaterial : __instance.CachedLightEdgeMaterial;
+        material = UnityEngine.Object.Instantiate(material);
+
         var edgeColor = new Lab {
-            L = faceColor.L < 0.75 ? 0.8f : 0.5f,
+            L = dark ? 0.8f : 0.5f,
             a = faceColor.a * 0.6f,
             b = faceColor.b * 0.6f,
         };
-        var edgeRgb = edgeColor.ToRgb();
 
-        var resourcePath = insMode ? "Materials/Ins/MaterialForEdge" : "Materials/MaterialForEdge";
-        var material = Object.Instantiate(Resources.Load<Material>(resourcePath));
-
-        material.SetColor("_TintColor", edgeRgb);
-
-        material.color = edgeRgb;
-        //material.SetColor("_SpecColor", edgeRgb);
-        //material.SetColor("_Color", edgeRgb);
-        //material.SetColor("_Emission", edgeRgb);
-
+        __instance.SetColor(material, edgeColor.ToRgb());
         edgeMaterialCache[cacheKey] = material;
         __result = material;
-        return false;
     }
 }
