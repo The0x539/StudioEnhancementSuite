@@ -34,8 +34,8 @@ public static class HighContrastOutlines {
             return false;
         }
 
-        var studioColor = IColorLibrary.Instance.GetStudioColorForLDrawCode(colorCode);
-        if (studioColor.CategoryIndex is not 0 or 2 or 3 or 4 or 7 or 8) {
+        var studioColor = ColorLibrary.Instance.GetStudioColorForLDrawCode(colorCode);
+        if (studioColor.CategoryIndex is not (0 or 2 or 3 or 4 or 7 or 8)) {
             return true;
         }
 

@@ -4,7 +4,7 @@
 		<TargetFramework>netstandard2.1</TargetFramework>
 		<AssemblyName>StudioEnhancementSuite</AssemblyName>
 		<Description>Various </Description>
-		<Version>1.3.1</Version>
+		<Version>1.4.0</Version>
 		<AllowUnsafeBlocks>true</AllowUnsafeBlocks>
 		<LangVersion>latest</LangVersion>
 		<RestoreAdditionalProjectSources>
@@ -33,8 +33,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="Studio">
-			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\Studio.dll</HintPath>
+		<Reference Include="Assembly-CSharp">
+			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\Assembly-CSharp.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Studio.Common">
@@ -56,7 +56,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Publicize Include="Studio" />
+		<Publicize Include="Assembly-CSharp" />
 	</ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
