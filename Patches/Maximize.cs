@@ -34,12 +34,13 @@ public static class Maximize {
 
         if (shouldMaximize) {
             Console.WriteLine("maximize");
-            MaximizeUnityWindow();
+            //MaximizeUnityWindow();
         } else {
             Console.WriteLine("do not maximize");
         }
     }
 
+    /*
     [HarmonyPatch(typeof(Preferences), nameof(Preferences.SaveAll))]
     [HarmonyPostfix]
     public static void Save() {
@@ -51,9 +52,10 @@ public static class Maximize {
     }
 
     private static void MaximizeUnityWindow() {
-        var hWnd = GameWorld.GetActiveWindow();
+        var hWnd = GameWorld.;
         User32.ShowWindow(hWnd, ShowWindowCmd.ShowMaximized);
     }
+    */
 
     private static WindowPlacement GetWindowPlacement(nint hWnd) {
         var placement = new WindowPlacement();

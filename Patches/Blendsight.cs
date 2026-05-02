@@ -9,7 +9,7 @@ namespace StudioEnhancementSuite.Patches;
 
 [HarmonyPatch]
 public static class Blendsight {
-    private static string blenderPath = "C:/Program Files/Blender Foundation/Blender 4.2/blender.exe";
+    private static string blenderPath = "C:/Program Files/Blender Foundation/Blender 4.2/blender.exe"; // lmao
     private static string blendsightPath = "";
 
     public static void Register(Harmony harmony, ConfigFile cfg) {
@@ -25,8 +25,8 @@ public static class Blendsight {
 
     [HarmonyPatch(typeof(MenuHandler), nameof(MenuHandler.OnHandleRenderByEyesight))]
     [HarmonyPrefix]
-    public static bool RedirectEyesightToBlender(MenuHandler __instance, string filePath, KOGRendererConfig conf, KOGCameraInfo cameraInfo) {
-        var loadedFile = BLStudioWrapper.Instance.blStudio.LoadedFile;
+    public static bool RedirectEyesightToBlender(MenuHandler __instance, string filePath, KOGRendererConfig conf, CameraInformation cameraInformation) {
+        var loadedFile = __instance._blStudioWrapper._loadedFileService.LoadedFile;
         var modelPath = loadedFile.filePath;
 
         if (string.IsNullOrEmpty(modelPath)) {
@@ -35,8 +35,8 @@ public static class Blendsight {
             throw new NotImplementedException("TODO: prompt to save changes");
         }
 
-        var camPos = cameraInfo.position;
-        var camRot = cameraInfo.rotation;
+        var camPos = cameraInformation.position;
+        var camRot = cameraInformation.rotation;
 
         var psi = new ProcessStartInfo(blenderPath);
         object[] args = [
@@ -46,8 +46,8 @@ public static class Blendsight {
             "-o", filePath,
             "--camera-position", camPos.x, camPos.y, camPos.z,
             "--camera-rotation", camRot.w, camRot.x, camRot.y, camRot.z,
-            "--clip-plane", cameraInfo.nearClipPlane, cameraInfo.farClipPlane,
-            "--fov", cameraInfo.fieldOfView,
+            "--clip-plane", cameraInformation.nearClipPlane, cameraInformation.farClipPlane,
+            "--fov", cameraInformation.fieldOfView,
             "--resolution", conf.ImageWidth, conf.ImageHeight,
         ];
         foreach (var arg in args) {

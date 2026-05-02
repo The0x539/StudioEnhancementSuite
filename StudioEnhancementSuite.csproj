@@ -16,6 +16,12 @@
 		<RunPostBuildEvent>OnOutputUpdated</RunPostBuildEvent>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<StudioStable>C:\Program Files\Studio 2.0 EarlyAccess</StudioStable>
+		<StudioEA>C:\Program Files\Studio 2.0 EarlyAccess</StudioEA>
+		<StudioDlls>$(StudioEA)\Studio_Data\Managed</StudioDlls>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="BepInEx.Analyzers" Version="1.*" PrivateAssets="all" />
 		<PackageReference Include="BepInEx.Core" Version="5.*" />
@@ -33,34 +39,43 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Reference Include="Assembly-CSharp">
-			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\Assembly-CSharp.dll</HintPath>
+		<Reference Include="Studio">
+			<HintPath>$(StudioDlls)\Studio.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Studio.Common">
-			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\BrickLink.Studio.Common.Runtime.dll</HintPath>
+			<HintPath>$(StudioDlls)\BrickLink.Studio.Common.Runtime.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Studio.Application">
-			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\Studio.Application.dll</HintPath>
+			<HintPath>$(StudioDlls)\Studio.Application.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="Studio.Presentation">
+			<HintPath>$(StudioDlls)\Studio.Presentation.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Studio.DataModel">
-			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\Studio.DataModel.dll</HintPath>
+			<HintPath>$(StudioDllDir)\Studio.DataModel.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 		<Reference Include="Zenject">
-			<HintPath>C:\Program Files\Studio 2.0 EarlyAccess\Studio_Data\Managed\Zenject.dll</HintPath>
+			<HintPath>$(StudioDlls)\Zenject.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
 
 	<ItemGroup>
-		<Publicize Include="Assembly-CSharp" />
+		<Publicize Include="Studio" />
 	</ItemGroup>
 
+
+	<Target Name="PostBuild" AfterTargets="PostBuildEvent" Condition="Exists($(GameDir))">
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(GameDir)\BepInEx\plugins" />
+	</Target>
+
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Program Files\Studio 2.0\BepInEx\plugins&quot;" />
-		<Exec Command="copy &quot;$(TargetPath)&quot; &quot;C:\Program Files\Studio 2.0 EarlyAccess\BepInEx\plugins&quot;" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StudioStable)\BepInEx\plugins" />
+		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(StudioEA)\BepInEx\plugins" />
 	</Target>
 </Project>

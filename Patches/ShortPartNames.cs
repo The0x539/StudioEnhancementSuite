@@ -19,13 +19,13 @@ public static class ShortPartNames {
 
     private static readonly Dictionary<string, string> shortNames = [];
 
-    [HarmonyPatch(typeof(Bucket), nameof(Bucket.addItem))]
+    [HarmonyPatch(typeof(Bucket), nameof(Bucket.AddItem))]
     [HarmonyPrefix]
     public static void GatherShortNames(Bucket __instance, BucketItem item) {
         AddShortName(__instance, item);
     }
 
-    [HarmonyPatch(typeof(BrickTexture), nameof(BrickTexture.IsNeedReDraw), MethodType.Getter)]
+    [HarmonyPatch(typeof(BrickTexture), nameof(BrickTexture.ReDraw))]
     [HarmonyPostfix]
     public static void UseShortNames(BrickTexture __instance) {
         if (shortNames.TryGetValue(__instance.m_labelDesc.text, out var label)) {
